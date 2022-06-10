@@ -1,11 +1,11 @@
 import Part from "./Part";
 
-export default function Content(props) {
+export default function Content({ part1, part2, part3 }) {
   return (
     <div>
-      <Part part={props.part1} exercise={props.exercises1} />
-      <Part part={props.part2} exercise={props.exercises2} />
-      <Part part={props.part3} exercise={props.exercises3} />
+      <Part part={part1} />
+      <Part part={part2} />
+      <Part part={part3} />
     </div>
   );
 }
