@@ -18,6 +18,14 @@ const App = () => {
       <p>neutral {neutral}</p>
       <p>bad {bad}</p>
       <p>all {total}</p>
+      <Statistics good={good} bad={bad} total={total} />
+    </div>
+  );
+};
+
+const Statistics = ({ good, bad, total }) => {
+  return (
+    <div>
       <p>average {(good - bad) / total}</p>
       <p>positive {good / total}</p>
     </div>
