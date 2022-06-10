@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const App = () => {
   const anecdotes = [
@@ -11,10 +11,11 @@ const App = () => {
     "Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients",
   ];
 
-  const starterPoints = { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0 };
+  const starterPoints = [0, 0, 0, 0, 0, 0, 0];
 
   const [selected, setSelected] = useState(0);
   const [points, setPoints] = useState(starterPoints);
+  const [most, setMost] = useState(0);
 
   function changeQuote() {
     let random = Math.floor(Math.random() * anecdotes.length);
@@ -23,16 +24,26 @@ const App = () => {
 
   function increaseVote() {
     setPoints((prevPoints) => {
-      return { ...prevPoints, [selected]: prevPoints[selected] + 1 };
+      prevPoints[selected]++;
+      return [...prevPoints];
     });
   }
 
+  useEffect(() => {
+    let max = Math.max(...points);
+    setMost(points.indexOf(max));
+  }, [points]);
+
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       <p>{anecdotes[selected]}</p>
       <p>has {points[selected]} votes</p>
       <button onClick={increaseVote}>vote</button>
       <button onClick={changeQuote}>next anecdote</button>
+      <h1>Anecdote with the most votes</h1>
+      <p>{anecdotes[most]}</p>
+      <p>has {points[most]} votes</p>
     </div>
   );
 };
